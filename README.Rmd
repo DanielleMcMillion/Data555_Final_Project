@@ -1,0 +1,68 @@
+---
+title: "README"
+output: html_document
+---
+
+# HTML Widget #1: Haralson County Insurance and Poverty Dashboard
+
+[View GITHUB Repo](https://github.com/DanielleMcMillion/Data555_Final_Project)
+
+This dashboard visualizes age-based comparisons of poverty levels and insurance coverage in Haralson County, Georgia using U.S. Census data. It highlights gaps in public insurance coverage among elderly populations and elevated poverty rates among the youth populations.
+
+## Features
+- Interactive bar charts with hover tooltips
+- Toggleable insurance type visualizations
+
+##Source Code
+**data_cleaning_scripts/**
+Haralson_Data_Cleaning.R: Script used to combine and group original datasets 
+data/**
+- `ACSST5Y2023.S1701_Poverty_Status.csv`
+- `ACSST5Y2023.S2703_Private_Health_Insurance.csv`
+- `ACSST5Y2023.S2704_Public_Health_Insurance.csv`
+- `ACSST5Y2023.S2701-2025-04-07T040103.csv`
+- `haralson_data_cleaned.csv`: Cleaned dataset used in the Flexdashboard
+
+**dashboard**
+- `haralson_county_insurance_poverty.Rmd`: Flexdashboard script
+
+## Real-World Impact
+This dashboard identifies age-related disparities in insurance coverage and poverty in Haralson County, Georgia. These insights support funding justifications for Federally Qualified Health Centers that target these undeserved groups. 
+---
+
+# HTML Widget #2: Haralson Health Collective KPI Dashboard
+
+[View Live App](https://daniellmcmillion.shinyapps.io/evaluative_measures_dashboard/)
+
+This dashboard visualizes health disparities and progress toward equity goals for the Haralson County FQHC. It features interactive filters, editable performance tables, and visual progress bars aligned to Healthy People 2030 targets.
+
+## Key Features
+- Interactive filter by disparity
+- Editable progress data with real-time visual feedback
+- Custom-colored progress bars showing performance gaps
+
+## Source Code
+**scripts/**
+- `Haralson_Disparities_Cleaning.R`: Cleans the original dataset from PLACES
+
+**data/**
+- Source: [PLACES - County Data 2024 (CDC)](https://data.cdc.gov/500-Cities-Places/PLACES-Local-Data-for-Better-Health-County-Data-20/swc5-untb/about_data)
+- `FQHC_evaluation_data.csv`: Cleaned dataset used in `app.R`
+ 
+**app**
+- `app.R`: Main Shiny app
+
+## Real-World Impact
+This tool KPI dashboard will be the central tool our proposed FQHC will use to monitor performance, track progress toward key outcomes, and guide continuous improvement. Each section corresponds to one of our measurable goals and  dashboard is reviewed monthly and used in quarterly staff meetings to share updates, celebrate progress, and address any areas of concern.
+
+---
+
+# Reproducibility with renv
+
+This project uses [`renv`](https://rstudio.github.io/renv/) to manage dependencies and ensure consistent environments across development and deployment.
+
+To recreate the environment:
+
+```r
+install.packages("renv")
+renv::restore()
