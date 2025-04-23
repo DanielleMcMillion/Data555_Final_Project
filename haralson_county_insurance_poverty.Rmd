@@ -1,0 +1,90 @@
+---
+title: "Haralson County, GA: Insurance Status & Poverty by Age Group"
+author: "Danielle McMillion"
+date: "`r Sys.Date()`"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(shiny)
+library(here)
+
+# Load cleaned dataset
+data <- read_csv(here("Haralson_County_Final", "data", "haralson_data_cleaned.csv"))
+
+# Set correct age group factor levels
+age_levels <- c("18 and under", "19-34", "35-64", "65+")
+data$Age_Group <- factor(data$Age_Group, levels = age_levels)
+```
+
+Key Takeaways: 
+Based on data collected by the U.S. Census, Haralson County, Georgia has a high population of their younger residents that live below the Federal Poverty line. Additionally, a high percentage of their residents that are publically insured are among the elderly population. 
+
+Row
+-----------------------------------------------------------------------
+### Poverty Rate by Age Group
+```{r}
+plot_ly(data = data %>% filter(!is.na(Poverty_Percent)),
+        x = ~Age_Group, y = ~Poverty_Percent, type = 'bar',
+        hovertext = ~paste("Poverty Rate:", round(Poverty_Percent, 1), "%\nCount (individuals):", Poverty_Count),
+        hoverinfo = "text",
+        marker = list(color = 'mediumpurple4')) %>%
+  layout(title = "Haralson County, GA: Poverty Rate (%)",
+         xaxis = list(title = "Age Group (yrs)"),
+         yaxis = list(title = "% in Poverty (100% FPL)"))
+```
+
+Row
+-----------------------------------------------------------------------
+### Insurance Coverage by Age Group with Legend Toggle
+
+```{r}
+plot_ly() %>%
+  add_trace(data = data, x = ~Age_Group, y = ~Private_Percent,
+            name = "Private Insurance", type = 'bar',
+            hovertext = ~paste("Private Insurance:", round(Private_Percent, 1), "%<br>Count:", Private_Count),
+            hoverinfo = "text",
+            marker = list(color = 'steelblue')) %>%
+  add_trace(data = data, x = ~Age_Group, y = ~Public_Percent,
+            name = "Public Insurance", type = 'bar',
+            hovertext = ~paste("Public Insurance:", round(Public_Percent, 1), "%<br>Count:", Public_Count),
+            hoverinfo = "text",
+            marker = list(color = 'seagreen')) %>%
+  add_trace(data = data, x = ~Age_Group, y = ~Uninsured_Percent,
+            name = "Uninsured", type = 'bar',
+            hovertext = ~paste("Uninsured:", round(Uninsured_Percent, 1), "%<br>Count:", Uninsured_Count),
+            hoverinfo = "text",
+            marker = list(color = 'orangered4')) %>%
+  layout(title = "Haralson County, GA: Insurance Coverage by Age Group",
+         barmode = 'group',
+         xaxis = list(title = "Age Group (yrs)"),
+         yaxis = list(title = "Coverage (%)"))
+```
+Data Description {.tabset}
+-----------------------------------------------------------------------
+
+### Dataset Information
+
+- **Source**: U.S. Census Bureau (American Community Survey 2023)
+> *Note: The data used is publicly available from the following links:*
+
+- **S1701**: https://data.census.gov/table/ACSST5Y2023.S1701?g=050XX00US13143&tp=false
+- **S2701**: https://data.census.gov/table/ACSST5Y2023.S2701?q=Healthy+Insurance+status&g=050XX00US13143 
+- **S2703**: https://data.census.gov/table/ACSST5Y2023.S2703?q=Health+Insurance+type&g=050XX00US13143 
+- **S2704**: https://data.census.gov/table/ACSST5Y2023.S2704?q=Health+Insurance&g=050XX00US13143 
+- **Sample Size**: ~30,000 residents of Haralson County, GA
+- **Collection Method**: Aggregated survey estimates from ACS 5-Year Data
+- **Population**: Civilian non-institutionalized residents of Haralson County, GA
+- **Time Period**: Data collected in 2023
+
+### Summary
+
+This dashboard identifies age-related disparities in insurance coverage and poverty in Haralson County, Georgia. These insights support funding justifications for Federally Qualified Health Centers that target these undeserved groups. 
+
