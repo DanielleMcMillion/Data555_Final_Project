@@ -5,103 +5,110 @@ library(readr)
 library(here)
 library(shinyWidgets)
 
-# === Load preprocessed comparison data ===
-data_file <- here::here("Haralson_County_Final", "data", "FQHC_evaluation_data.csv")
+# === Load cleaned data ===
+data_file <- "FQHC_evaluation_data.csv"
 comparison_df <- read_csv(data_file, show_col_types = FALSE)
 
-# Ensure 'Measure' column exists
+# Making sure 'Measure' column exists
 if (!"Measure" %in% names(comparison_df)) {
   comparison_df$Measure <- comparison_df$Disparity
 }
 
-# Add editable FQHC columns if not present
+# Adding editable FQHC columns
 if (!"FQHC Progress (%)" %in% names(comparison_df)) {
   comparison_df$`FQHC Progress (%)` <- 0
 }
 
 # === UI ===
-ui <- fluidPage(
-  tags$head(
+ui <- navbarPage(
+  title = "\U0001F4CA Haralson Health Collective Disparities KPI Dashboard",
+  id = "main_nav",
+  
+  # === Custom CSS ===
+  header = tags$head(
     tags$style(HTML("
-  body { background-color: #4D7952; color: white; }
-
-  .selectize-input {
-    background-color: #d9d9d9 !important;
-    color: black !important;
-    border-radius: 4px;
-  }
-
-  .selectize-dropdown, .selectize-dropdown-content {
-    background-color: #f0f0f0 !important;
-    color: black !important;
-  }
-
-  table.dataTable thead {
-    background-color: #4D7952;
-    color: white;
-  }
-
-  table.dataTable tbody {
-    background-color: #C3D3C6;
-    color: black;
-  }
-
-  table.dataTable tbody tr:hover {
-    background-color: #8BB4C7 !important;
-  }
-
-  .dataTables_wrapper .dataTables_paginate .paginate_button {
-    color: black !important;
-    background: none !important;
-    border: none !important;
-  }
-
-  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: #000 !important;
-    text-decoration: underline;
-  }
-
-  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background-color: #03787d !important;
-    color: white !important;
-    font-weight: bold;
-  }
-
-  .shiny-input-container input:focus,
-  .shiny-input-container select:focus {
-    outline: 2px solid #fcd116;
-    box-shadow: 0 0 10px #fcd116;
-  }
-
-  .shiny-input-container label[for='disparity_filter'] {
-    color: #d3d3d3 !important;
-  }
-"))
-    
+      body { background-color: #4D7952; color: white; }
+      .selectize-input {
+        background-color: #d9d9d9 !important;
+        color: black !important;
+        border-radius: 4px;
+      }
+      .selectize-dropdown, .selectize-dropdown-content {
+        background-color: #f0f0f0 !important;
+        color: black !important;
+      }
+      table.dataTable thead {
+        background-color: #4D7952;
+        color: white;
+      }
+      table.dataTable tbody {
+        background-color: #C3D3C6;
+        color: black;
+      }
+      table.dataTable tbody tr:hover {
+        background-color: #8BB4C7 !important;
+      }
+      .dataTables_wrapper .dataTables_paginate .paginate_button {
+        color: black !important;
+        background: none !important;
+        border: none !important;
+      }
+      .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        color: #000 !important;
+        text-decoration: underline;
+      }
+      .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background-color: #03787d !important;
+        color: white !important;
+        font-weight: bold;
+      }
+      .shiny-input-container input:focus,
+      .shiny-input-container select:focus {
+        outline: 2px solid #fcd116;
+        box-shadow: 0 0 10px #fcd116;
+      }
+      .shiny-input-container label[for='disparity_filter'] {
+        color: #d3d3d3 !important;
+      }
+    "))
   ),
   
-  titlePanel("\U0001F4CA Haralson Health Collective Disparities KPI Dashboard"),
+  # === Dashboard Tab ===
+  tabPanel("Dashboard",
+           sidebarLayout(
+             sidebarPanel(
+               selectInput("disparity_filter", "Filter by Disparity:",
+                           choices = c("All", unique(comparison_df$Disparity)), selected = "All"),
+               helpText("Compare Haralson County's rates with GA, US, and the FQHC's performance.")
+             ),
+             mainPanel(
+               h4("Comparative KPI Table with Progress Bars"),
+               DTOutput("comparison_dt"),
+               br(),
+               uiOutput("progress_bars"),
+               br(),
+               h4("Key Takeaways"),
+               p("This dashboard tracks the progress of our proposed-FQHC toward achieving health equity goals. It is used to assess disparities, adjust internal targets, and guide improvement efforts."),
+               br(),
+               p(strong("Why this matters:"),
+                 "This tool helps our proposed-FQHC track disparities, guide care coordination, and align with Healthy People 2030.")
+             )
+           )
+  ),
   
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("disparity_filter", "Filter by Disparity:",
-                  choices = c("All", unique(comparison_df$Disparity)), selected = "All"),
-      helpText("Compare Haralson County's rates with GA, US, and track your own FQHC performance.")
-    ),
-    mainPanel(
-      h4("Comparative KPI Table with Progress Bars"),
-      DTOutput("comparison_dt"),
-      br(),
-      uiOutput("progress_bars"),
-      br(),
-      h4("Key Takeaways"),
-      p("This dashboard tracks the progress of your FQHC toward achieving health equity goals. Use it to assess disparities, adjust internal targets, and guide improvement efforts."),
-      br(),
-      p(strong("Why this matters:"),
-        "This tool helps rural health leaders track disparities, guide care coordination, and align with Healthy People 2030.")
-    )
+  # === Dataset Info Tab ===
+  tabPanel("Dataset Info",
+           fluidPage(
+             h4("Dataset Description"),
+             p("The data used in this dashboard is from HealthyPeople2030 and PLACES."),
+             p("Sample size: population size (30,548."),
+             p("The FQHC data will be manually compiled by clinical staff from EHR summaries and performance reports."),
+             p("Study population includes underserved patients in Haralson County, GA."),
+             p("Time period: January 2023 – March 2025.")
+           )
   )
 )
+
 
 # === Server ===
 server <- function(input, output, session) {
@@ -118,7 +125,7 @@ server <- function(input, output, session) {
     }
   })
   
-  # Render editable DT table
+  # editable DT table
   output$comparison_dt <- renderDT({
     datatable(
       filtered_data(),
@@ -133,7 +140,7 @@ server <- function(input, output, session) {
     )
   }, server = FALSE)
   
-  # Render progress bars
+  # progress bars
   output$progress_bars <- renderUI({
     df <- filtered_data()
     tagList(
@@ -168,12 +175,12 @@ server <- function(input, output, session) {
     
     i <- info$row
     j <- info$col
-    colname <- names(filtered_df)[j + 1]  # adjust for JS indexing
+    colname <- names(filtered_df)[j + 1]  
     val <- as.numeric(info$value)
     
     match_row <- which(df$Measure == filtered_df$Measure[i] & df$Disparity == filtered_df$Disparity[i])
     df[match_row, colname] <- val
-    reactive_df(df)  # update reactive value
+    reactive_df(df)  
   })
 }
 
