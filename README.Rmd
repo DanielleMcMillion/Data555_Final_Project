@@ -59,7 +59,7 @@ This tool KPI dashboard will be the central tool our proposed FQHC will use to m
 
 # Reproducibility with renv
 
-This project uses [`renv`](https://rstudio.github.io/renv/) to manage dependencies and ensure consistent environments across development and deployment.
+This project uses [`renv`] to manage dependencies and ensure consistent environments.
 
 To recreate the environment:
 

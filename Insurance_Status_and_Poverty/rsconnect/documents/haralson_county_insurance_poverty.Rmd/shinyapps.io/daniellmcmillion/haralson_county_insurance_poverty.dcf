@@ -1,0 +1,12 @@
+name: haralson_county_insurance_poverty
+title: haralson_county_insurance_poverty
+username: daniellmcmillion
+account: daniellmcmillion
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14672060
+bundleId: 10220087
+url: https://daniellmcmillion.shinyapps.io/haralson_county_insurance_poverty/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
