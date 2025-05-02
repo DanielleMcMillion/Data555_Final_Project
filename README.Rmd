@@ -1,7 +1,3 @@
----
-title: "README"
-output: html_document
----
 
 # Haralson County Insurance and Poverty Dashboard
 
