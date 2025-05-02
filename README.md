@@ -1,0 +1,91 @@
+README
+================
+
+# Haralson County Insurance and Poverty Dashboard
+
+## Background
+
+- This dashboard visualizes age-based comparisons of poverty levels and
+  insurance coverage in Haralson County, Georgia, using U.S. Census
+  data.
+- It highlights gaps in public insurance coverage among elderly
+  populations and elevated poverty rates among youth.
+- Understanding these disparities helps local health systems prioritize
+  interventions and funding needs.
+
+## Objective
+
+- Identify age-related patterns in poverty and insurance coverage in
+  Haralson County.
+- Support data-informed decisions for community resource allocation and
+  potential FQHC proposals.
+
+## Methods
+
+- Public-use Census data tables were downloaded and merged using
+  `dplyr`.
+- Age groups were harmonized across insurance types and poverty metrics.
+- Flexdashboard with `plotly` was used to create interactive bar charts
+  with hover tooltips.
+- Toggleable categories were implemented using grouped bar plots.
+
+## Importance of this Project
+
+- By highlighting disparities across life stages, this dashboard
+  supports health equity work in rural Georgia communities.
+- These insights can inform grant proposals and health center
+  performance goals tied to population-level outcomes.
+
+## View Dashboard
+
+🔗 [Live
+App](https://daniellmcmillion.shinyapps.io/insurance_status_and_poverty/)  
+🔗 [GitHub
+Repo](https://github.com/DanielleMcMillion/Data555_Final_Project)
+
+------------------------------------------------------------------------
+
+# Haralson Health Collective KPI Dashboard
+
+## Background
+
+- This dashboard supports performance evaluation for a proposed
+  Federally Qualified Health Center (FQHC) in Haralson County, Georgia.
+- It is designed to monitor disparities, track progress toward Healthy
+  People 2030 targets, and identify care gaps over time.
+
+## Objective
+
+- Provide an interactive tool for monthly and quarterly KPI tracking
+  across demographic and health disparity dimensions.
+- Facilitate equitable care management and continuous quality
+  improvement.
+
+## Methods
+
+- Raw CDC PLACES data was cleaned and categorized using `dplyr`.
+- Editable tables and reactive progress bars were implemented in `Shiny`
+  using `DT` and `shinyWidgets::progressBar`.
+- Users can filter by disparity dimension to customize views of
+  performance.
+
+## Importance of this Project
+
+- This tool allows staff and stakeholders to visualize progress in
+  real-time and adjust interventions accordingly.
+- It aligns clinical operations with external benchmarks and internal
+  performance goals.
+
+## View Dashboard
+
+🔗 [Live
+App](https://daniellmcmillion.shinyapps.io/evaluative_measures_dashboard/)  
+🔗 [GitHub
+Repo](https://github.com/DanielleMcMillion/Data555_Final_Project)
+
+------------------------------------------------------------------------
+
+# Reproducibility with renv
+
+This project uses [`renv`](https://rstudio.github.io/renv/) to ensure
+reproducible R package environments.
