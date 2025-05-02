@@ -355,38 +355,114 @@ display: none;
 
 <div id="haralson-county-insurance-and-poverty-dashboard" class="section level1">
 <h1>Haralson County Insurance and Poverty Dashboard</h1>
-<p>This dashboard visualizes age-based comparisons of poverty levels and
-insurance coverage in Haralson County, Georgia using U.S. Census data.
-It highlights gaps in public insurance coverage among elderly
-populations and elevated poverty rates among the youth populations.</p>
-<div id="features" class="section level2">
-<h2>Features</h2>
+<div id="background" class="section level2">
+<h2>Background</h2>
 <ul>
-<li>Interactive bar charts with hover tooltips</li>
-<li>Responsive layout for desktop and mobile</li>
-<li>Toggleable insurance type visualizations</li>
-<li>Dataset overview and real-world implications</li>
+<li>This dashboard visualizes age-based comparisons of poverty levels
+and insurance coverage in Haralson County, Georgia, using U.S. Census
+data.</li>
+<li>It highlights gaps in public insurance coverage among elderly
+populations and elevated poverty rates among youth.</li>
+<li>Understanding these disparities helps local health systems
+prioritize interventions and funding needs.</li>
 </ul>
 </div>
-<div id="source-code" class="section level2">
-<h2>Source Code</h2>
-<p>scripts/ Haralson_Data_Cleaning.R: Script used to combine and group
-original datasets data/ Original Datasets:
-ACSST5Y2023.S1701_Poverty_Status.csv;
-ACSST5Y2023.S2703_Private_Health_Insurance.csv;
-ACSST5Y2023.S2704_Public_Health_Insurance.csv;
-ACSST5Y2023.S2701-2025-04-07T040103.csv haralson_data_cleaned.csv:
-Dataset used in the R Markdown file<br />
-harason_county_insurance_poverty.Rmd : R Markdown file used to generate
-the Flexdashboard</p>
+<div id="objective" class="section level2">
+<h2>Objective</h2>
+<ul>
+<li>Identify age-related patterns in poverty and insurance coverage in
+Haralson County.</li>
+<li>Support data-informed decisions for community resource allocation
+and potential FQHC proposals.</li>
+</ul>
 </div>
-<div id="real-world-impact" class="section level2">
-<h2>Real-World Impact</h2>
-<p>This dashboard identifies age-related disparities in insurance
-coverage and poverty in Haralson County, Georgia. These insights support
-funding justifications for Federally Qualified Health Centers that
-target these undeserved groups.</p>
+<div id="methods" class="section level2">
+<h2>Methods</h2>
+<ul>
+<li>Public-use Census data tables were downloaded and merged using
+<code>dplyr</code>.</li>
+<li>Age groups were harmonized across insurance types and poverty
+metrics.</li>
+<li>Flexdashboard with <code>plotly</code> was used to create
+interactive bar charts with hover tooltips.</li>
+<li>Toggleable categories were implemented using grouped bar plots.</li>
+</ul>
 </div>
+<div id="importance-of-this-project" class="section level2">
+<h2>Importance of this Project</h2>
+<ul>
+<li>By highlighting disparities across life stages, this dashboard
+supports health equity work in rural Georgia communities.</li>
+<li>These insights can inform grant proposals and health center
+performance goals tied to population-level outcomes.</li>
+</ul>
+</div>
+<div id="view-dashboard" class="section level2">
+<h2>View Dashboard</h2>
+<p>🔗 <a href="https://daniellmcmillion.shinyapps.io/insurance_status_and_poverty/">Live
+App</a><br />
+🔗 <a href="https://github.com/DanielleMcMillion/Data555_Final_Project">GitHub
+Repo</a></p>
+<hr />
+</div>
+</div>
+<div id="haralson-health-collective-kpi-dashboard" class="section level1">
+<h1>Haralson Health Collective KPI Dashboard</h1>
+<div id="background-1" class="section level2">
+<h2>Background</h2>
+<ul>
+<li>This dashboard supports performance evaluation for a proposed
+Federally Qualified Health Center (FQHC) in Haralson County,
+Georgia.</li>
+<li>It is designed to monitor disparities, track progress toward Healthy
+People 2030 targets, and identify care gaps over time.</li>
+</ul>
+</div>
+<div id="objective-1" class="section level2">
+<h2>Objective</h2>
+<ul>
+<li>Provide an interactive tool for monthly and quarterly KPI tracking
+across demographic and health disparity dimensions.</li>
+<li>Facilitate equitable care management and continuous quality
+improvement.</li>
+</ul>
+</div>
+<div id="methods-1" class="section level2">
+<h2>Methods</h2>
+<ul>
+<li>Raw CDC PLACES data was cleaned and categorized using
+<code>dplyr</code>.</li>
+<li>Editable tables and reactive progress bars were implemented in
+<code>Shiny</code> using <code>DT</code> and
+<code>shinyWidgets::progressBar</code>.</li>
+<li>Users can filter by disparity dimension to customize views of
+performance.</li>
+</ul>
+</div>
+<div id="importance-of-this-project-1" class="section level2">
+<h2>Importance of this Project</h2>
+<ul>
+<li>This tool allows staff and stakeholders to visualize progress in
+real-time and adjust interventions accordingly.</li>
+<li>It aligns clinical operations with external benchmarks and internal
+performance goals.</li>
+</ul>
+</div>
+<div id="view-dashboard-1" class="section level2">
+<h2>View Dashboard</h2>
+<p>🔗 <a href="https://daniellmcmillion.shinyapps.io/evaluative_measures_dashboard/">Live
+App</a><br />
+🔗 <a href="https://github.com/DanielleMcMillion/Data555_Final_Project">GitHub
+Repo</a></p>
+<hr />
+</div>
+</div>
+<div id="reproducibility-with-renv" class="section level1">
+<h1>Reproducibility with renv</h1>
+<p>This project uses <a href="https://rstudio.github.io/renv/"><code>renv</code></a> to ensure
+reproducible R package environments.</p>
+<p>To recreate this environment:</p>
+<p>```r install.packages(“renv”) renv::restore()</p>
 </div>
 
 
