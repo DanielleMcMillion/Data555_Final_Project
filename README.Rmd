@@ -65,8 +65,4 @@
 
 This project uses [`renv`](https://rstudio.github.io/renv/) to ensure reproducible R package environments.
 
-To recreate this environment:
 
-```r
-install.packages("renv")
-renv::restore()
